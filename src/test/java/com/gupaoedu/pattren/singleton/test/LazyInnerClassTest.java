@@ -20,6 +20,7 @@ public class LazyInnerClassTest {
             //获取私有构造器
             Constructor c = clazz.getDeclaredConstructor(null);
 
+
             //强制访问
             c.setAccessible(true);
 
