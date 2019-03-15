@@ -9,6 +9,8 @@ package com.gupaoedu.pattren.singleton.test;
  */
 public class TestStaticClass {
 
+    private static Pojo pojo = new Pojo();
+
     public TestStaticClass(){
         System.out.println("外部类的构造方法");
     }

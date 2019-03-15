@@ -8,6 +8,10 @@ public class Pojo {
     private String name;
     private String age;
 
+    public Pojo(){
+        System.out.println("pojo构造方法");
+    }
+
     public String getName() {
         return name;
     }
