@@ -1,6 +1,8 @@
 package com.gupaoedu.pattren.singleton.threadlocal;
 
-
+/**
+ *线程内安全,可以运用于动态数据源切换
+ */
 public class ThreadLocalSingleton {
 
     private static final ThreadLocal<ThreadLocalSingleton> threadLocal =
