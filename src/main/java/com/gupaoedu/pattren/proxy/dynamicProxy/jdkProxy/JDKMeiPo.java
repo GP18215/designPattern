@@ -1,6 +1,4 @@
-package com.gupaoedu.pattren.proxy.jdkProxy;
-
-import org.springframework.beans.factory.BeanFactory;
+package com.gupaoedu.pattren.proxy.dynamicProxy.jdkProxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

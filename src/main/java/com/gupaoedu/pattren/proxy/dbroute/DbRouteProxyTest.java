@@ -1,5 +1,6 @@
 package com.gupaoedu.pattren.proxy.dbroute;
 
+import com.gupaoedu.pattren.proxy.dbroute.proxy.OrderServiceDynamicProxy;
 import com.gupaoedu.pattren.proxy.dbroute.proxy.OrderServiceStaticProxy;
 
 import java.text.ParseException;
@@ -20,8 +21,10 @@ public class DbRouteProxyTest {
         //order.setCreateTime(new Date().getTime());
 
         IOrderService orderService = new OrderServiceStaticProxy(new OrderService());
+        IOrderService os = (IOrderService) new OrderServiceDynamicProxy().getInstance(new OrderService());
 
-        orderService.createOrder(order);
+        //orderService.createOrder(order);
+        os.createOrder(order);
         } catch (ParseException e) {
             e.printStackTrace();
         }
