@@ -1,6 +1,10 @@
 package com.gupaoedu.pattren.proxy.dynamicProxy.jdkProxy;
 
 import com.gupaoedu.pattren.proxy.Person;
+import sun.misc.ProxyGenerator;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,5 +20,14 @@ public class JDKProxyTest {
         person.findLove();
 
         person.findJob();
+
+       byte[] bytes =  ProxyGenerator.generateProxyClass("$Proxy0",new Class[]{Person.class});
+        try {
+            FileOutputStream os = new FileOutputStream("E://$Proxy0.class");
+            os.write(bytes);
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
