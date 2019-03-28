@@ -1,5 +1,11 @@
 package com.gupaoedu.pattren.proxy.dynamicProxy.mycProxy;
 
+import javax.tools.JavaCompiler;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.ToolProvider;
+import java.io.File;
+import java.io.FileWriter;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,13 +29,28 @@ public class mycProxy {
             //1.动态生成Java源代码
                String src =  generateSrc(interfaces);
             //2.java文件输出磁盘
-
+                String filePath = mycProxy.class.getResource("").getPath();
+                File f = new File(filePath + "$Proxy0.java");
+                FileWriter fw = new FileWriter(f);
+                fw.write(src);
+                fw.flush();
+                fw.close();
             //3.把生成的.java文件编译成.class文件
+            JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+            StandardJavaFileManager manager = compiler.getStandardFileManager(null,null,null);
+            Iterable iterable = manager.getJavaFileObjects(f);
+            JavaCompiler.CompilationTask task = compiler.getTask(null,manager,null,null,null,iterable);
+            task.call();
+            manager.close();
+
 
             //4.编译生成的.class文件加载到JVM中来
-
+            Class proxyClass= classLoader.findClass("$Proxy0");
+            System.out.println(proxyClass);
+            Constructor constructor = proxyClass.getConstructor(GPInvocationHandler.class);
+            f.delete();
             //5.返回字节码重组以后的代理对象
-
+            return constructor.newInstance(h);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -41,7 +62,7 @@ public class mycProxy {
         sb.append("package com.gupaoedu.pattren.proxy.dynamicProxy.mycProxy;"+ln);
         sb.append("import com.gupaoedu.pattren.proxy.Person;"+ln);
         sb.append("import java.lang.reflect.*;"+ln);
-        sb.append("public class $Proxy0 implement "+interfaces[0].getName()+"{"+ln);
+        sb.append("public class $Proxy0 implements "+interfaces[0].getName()+"{"+ln);
             sb.append("private GPInvocationHandler h;"+ln);
             sb.append("public $Proxy0(GPInvocationHandler h){"+ln);
                     sb.append("this.h = h;"+ln);
@@ -71,7 +92,7 @@ public class mycProxy {
                     paramNames.toString() +") {" +ln);
                    sb.append("try{"+ln);
                       sb.append("Method m = " +interfaces[0].getName() + ".class.getMethod(\""
-            + method.getName() +"\",new class[]{"+paramClasses.toString() +"});"+ln);
+            + method.getName() +"\",new Class[]{"+paramClasses.toString() +"});"+ln);
                            sb.append((hasReturnValue(method.getReturnType()) ? "reurn ": "")+
                            getCaseCode("this.h.invoke(this,m,new Object[]{"+paramValues+"})", method.getReturnType())+";"+ln);
                    sb.append("}catch(Error _ex){ }"+ln);

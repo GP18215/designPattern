@@ -14,8 +14,8 @@ public class mycProxyTest {
     public static void main(String[] args) {
         try{
             Person obj = (Person) new GPMeipo().getInstance(new Customer());
-//            System.out.println(obj.getClass());
-//            obj.findJob();
+            System.out.println(obj.getClass());
+            obj.findJob();
         }catch (Exception e){
             e.printStackTrace();
         }
