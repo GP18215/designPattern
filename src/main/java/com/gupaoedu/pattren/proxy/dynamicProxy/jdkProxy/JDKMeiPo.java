@@ -17,6 +17,11 @@ import java.lang.reflect.Proxy;
 public class JDKMeiPo implements InvocationHandler {
     private Object target;
 
+    /**
+     * 获取代理对象
+     * @param target 需要被代理的对象
+     * @return
+     */
     public Object getInstance(Object target){
         this.target = target;
 

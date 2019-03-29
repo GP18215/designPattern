@@ -16,6 +16,7 @@ public class mycProxyTest {
             Person obj = (Person) new GPMeipo().getInstance(new Customer());
             System.out.println(obj.getClass());
             obj.findJob();
+            obj.findLove();
         }catch (Exception e){
             e.printStackTrace();
         }
