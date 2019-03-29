@@ -1,6 +1,4 @@
-package com.gupaoedu.pattren.proxy.jdkProxy;
-
-import org.springframework.beans.factory.BeanFactory;
+package com.gupaoedu.pattren.proxy.dynamicProxy.jdkProxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -19,6 +17,11 @@ import java.lang.reflect.Proxy;
 public class JDKMeiPo implements InvocationHandler {
     private Object target;
 
+    /**
+     * 获取代理对象
+     * @param target 需要被代理的对象
+     * @return
+     */
     public Object getInstance(Object target){
         this.target = target;
 
